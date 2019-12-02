@@ -6,3 +6,4 @@
 学习记录第六行，修改文件测试未同步到本地仓库 git tracks changes of files
 学习记录第七行，修改文件测试尝试切换分支 creating a new branch is quick
 学习记录第八行，修改文件测试已切换到的分支(dev)
+学习记录第九行，修改文件使分支与主干冲突，并尝试进行解决
