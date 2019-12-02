@@ -6,3 +6,4 @@
 学习记录第六行，修改文件测试未同步到本地仓库 git tracks changes of files
 学习记录第七行，修改文件测试尝试切换分支 creating a new branch is quick
 学习记录第八行，修改文件测试已切换到的分支(dev)
+学习记录第刀行，修改文件尝试解决冲突 creating a new branch is quick and simple
