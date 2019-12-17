@@ -151,7 +151,7 @@
 
     <script>
         window.onload=function () {
-            new showPop()
+            new showPop('pop1');
             let src = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wgARCAAhACYDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAMFBAIB/8QAFgEBAQEAAAAAAAAAAAAAAAAAAgED/9oADAMBAAIQAxAAAAGvV515acI3REVDSx2hPoZNtZTYZTLKDALyaQwqwGf/xAAhEAACAgEDBQEAAAAAAAAAAAACAwABBBESQRMiJDEyM//aAAgBAQABBQJS7uAAzujmEoV5GSVu9roVhvqZB0ZJvasi8gi1llelrsiblAuOTRxK2hCup0C1JFFQ/XPJxv6//8QAGhEAAgIDAAAAAAAAAAAAAAAAAAIQEQESMf/aAAgBAwEBPwFmuKijUyN2P//EABkRAAIDAQAAAAAAAAAAAAAAAAABEBETQf/aAAgBAgEBPwGps0SNI6I//8QAIxAAAgEDAwQDAAAAAAAAAAAAAAERAgMhECJBEjFRYXGBsf/aAAgBAQAGPwI7zBwvomc8YMJVfKFat7ZU1P0KlYO5Ujq5q/C57WBY40bTFTnCNrybq8eNOu3chvvKN7mrzAh6Wxn/xAAiEAEAAgEDBQADAAAAAAAAAAABABEhMUFRYXGBkaGxweH/2gAIAQEAAT8hoaMcyo0HqhxPIm+1oh12mCDDKDqQPJvSU7JxFxfSMxwmOgmL3A66jWWqlYmEp9QwHZjOvAcVAhEHLMSXvf5AYHMbdV0Lb8QkV2qr8n2x+0Pyn6p8BP/aAAwDAQACAAMAAAAQ7o9b8NjBB//EABoRAAMBAQEBAAAAAAAAAAAAAAABETEhUWH/2gAIAQMBAT8QZ2T4ISENdI9NGAsP/8QAGREBAQEBAQEAAAAAAAAAAAAAAQARMUFh/9oACAECAQE/EAnWAl+SMtGEC9mcX//EACIQAQACAgIBBAMAAAAAAAAAAAEAESExQVFxYZGhsRDB4f/aAAgBAQABPxAJBblgnEYKN09Y5gGAOKSbSYxIvbzQTOIClAKdleYwFhqTih7dQKMFDt5e2f0EwspC5gLQ+/aawNp6AD0u4Qjm7QTcpu7Y8M/MQ8Zksoqr0b5+iaG/sFhnfrHS3jQxFteb5vCwM+x3UwTYCBNZPHZUHRfo7l4KarU+Lnz00Rv5fp+If//Z";
             let img = document.getElementById("testImg");
             img.src = src;
@@ -183,46 +183,31 @@
             this.show=function(){
                 if(this.el){
                     this.locatePop(this.el);
+                    this.el.querySelector(".close_pop").onclick=function(){
+                        let parent =  _that.findParent(this,'popup');
+                        parent.style.display = "none";
+                    }
                 }else{
                     this.createPop();
                     let el = document.getElementById('showMsg');
                     this.locatePop(el);
                     el.querySelector(".close_pop").onclick=function(){
-                        //console.log(this.parentNode.parentNode.parentNode.className);
-                        //this.parentNode.parentNode.parentNode.style.display = 'none';
-                        //console.log(this);
-                        //console.log(_that.findParent(this,'popup'));
                         let parent =  _that.findParent(this,'popup');
-                        console.log(parent);
-                        
-                        
+                        parent.parentNode.removeChild(parent);
                     }
                 }
             }
             this.findParent=function(el,name){
-                if(el.className==name){
-                   console.log(el);
-                   return el;
-                }else{
-                    if(el.parentNode) _that.findParent(el.parentNode,name);
-                   console.log(_that.findParent);
+                while(el.className!=name){
+                    el=el.parentNode;
                 }
+                return el;
             }
             //调用show
             this.show();
             window.onresize = function(){
                _that.show();
-            }
-            
-            // this.resizeShow=function(){
-            //     let resize = window.resize;
-            //     resize = function(){
-            //         this.clickShow(elem);
-            //     }
-            // }
-         
-            
-            
+            }   
         }
     </script>
 </body>
