@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        :root{
+            --color:#4d4d4d;
+            --fontSize:14px;
+            --highLight:#00a1d6;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            font-size:var(--fontSize);
+            color:var(--color);
+           
+        }
+
+        html,
+        body,
+        box {
+            width: 100%;
+            height: 100%;
+        }
+
+        .box {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .popup {
+            position: absolute;
+            /* display: none; */
+            width:100%;
+            height:100%;
+            top:0;
+            left:0;
+            background-color:rgba(0,0,0,0.4);
+        }
+        .popup>div{
+            width:360px;
+            background-color:white;
+        }
+        .close_pop{
+            margin-top:6px;
+            display: inline-block;
+            width:26px;
+            height:26px;
+            cursor: pointer;
+            background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAHtQTFRFAAAATU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NU4RuxAAAACl0Uk5TAAYEB5ePCBWubvpbAete+XivL3QDC6XwRd5y1kn973r7duB191b2e1CfX8MOAAAAnElEQVR4nM2PbRKCIBRFiRf4BaJiamYSmdX+V1hhFiIL8P66M2cunIfQlrLD/w7YJrAndO5BGNkIkzj5VkZ4uniQJiIDs8l5wZzfMiFLhA5V3axEQB5bCKpT527eKVsh87rzHgDy3DeejTHoY0V95GOgLhqviTGg+jqAS9hkgAeh3Q3hkwHo27jYQciLuY93ZSMcpT9reDy9B2wwL9pZB5N0+nkpAAAAAElFTkSuQmCC) center center no-repeat;
+        }
+        .close_pop:hover{
+            opacity: 0.8;
+        }
+        .goal_btn_box{
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 26px;
+            height:26px;
+            width:96px;
+            border:1px solid var(--color);
+            padding-left:6px;
+            border-radius: 2px;
+        }
+        .puput_title{
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 40px;
+            height:40px;
+            border-bottom:1px solid #e0e0e0;
+            padding-left:16px;
+            padding-right: 6px;
+            margin-bottom: 20px;
+        }
+        .clearfix{
+            content:"";
+            clear: both;
+            display: block;
+        }
+        .f_l{
+            float:left;
+        }
+        .f_r{
+            float:right;
+        }
+        .form_row{
+            height:60px;
+            padding-left:16px;
+        }
+        .form_row input{
+            height:36px;
+            width:260px;
+            outline-style: none;
+            border-radius: 2px;
+            border:1px solid #e0e0e0;
+            text-indent: 10px;
+        }
+        .form_row input:focus{
+            border-color:var(--highLight);
+        }
+        .form_row label{
+            width:64px;
+            display: inline-block;
+            text-align: right;
+            margin-right:6px;
+            font-size:var(--fontSize);
+        }
+        div[id^='pop'],#showMsg{
+            border-radius: 2px;
+            position: absolute;
+        }
+        .msg_text{
+            padding:0 16px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <img src="" id="testImg">
+        <div class="wrap">
+            <div class="left_content">
+                <span class="login_btn">
+                    <a class="add_btn">添加目标网址</a>
+                </span>
+            </div>
+        </div>
+        <!-- popup -->
+        <div class="popup">
+            <div id="pop1">
+                <form>
+                    <h1 class="puput_title clearfix">添加目标 <a class="close_pop f_r"></a></h1>
+                    <div class="form_row">
+                        <label for="goal">名称</label><input type="text" name="goal" placeholder="请输入目标名称">
+                    </div>
+                    <div class="form_row">
+                        <label for="ip_adress">IP</label><input type="text" name="ip_adress" placeholder="请输入登陆地址">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        window.onload=function () {
+            new showPop()
+            let src = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wgARCAAhACYDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAMFBAIB/8QAFgEBAQEAAAAAAAAAAAAAAAAAAgED/9oADAMBAAIQAxAAAAGvV515acI3REVDSx2hPoZNtZTYZTLKDALyaQwqwGf/xAAhEAACAgEDBQEAAAAAAAAAAAACAwABBBESQRMiJDEyM//aAAgBAQABBQJS7uAAzujmEoV5GSVu9roVhvqZB0ZJvasi8gi1llelrsiblAuOTRxK2hCup0C1JFFQ/XPJxv6//8QAGhEAAgIDAAAAAAAAAAAAAAAAAAIQEQESMf/aAAgBAwEBPwFmuKijUyN2P//EABkRAAIDAQAAAAAAAAAAAAAAAAABEBETQf/aAAgBAgEBPwGps0SNI6I//8QAIxAAAgEDAwQDAAAAAAAAAAAAAAERAgMhECJBEjFRYXGBsf/aAAgBAQAGPwI7zBwvomc8YMJVfKFat7ZU1P0KlYO5Ujq5q/C57WBY40bTFTnCNrybq8eNOu3chvvKN7mrzAh6Wxn/xAAiEAEAAgEDBQADAAAAAAAAAAABABEhMUFRYXGBkaGxweH/2gAIAQEAAT8hoaMcyo0HqhxPIm+1oh12mCDDKDqQPJvSU7JxFxfSMxwmOgmL3A66jWWqlYmEp9QwHZjOvAcVAhEHLMSXvf5AYHMbdV0Lb8QkV2qr8n2x+0Pyn6p8BP/aAAwDAQACAAMAAAAQ7o9b8NjBB//EABoRAAMBAQEBAAAAAAAAAAAAAAABETEhUWH/2gAIAQMBAT8QZ2T4ISENdI9NGAsP/8QAGREBAQEBAQEAAAAAAAAAAAAAAQARMUFh/9oACAECAQE/EAnWAl+SMtGEC9mcX//EACIQAQACAgIBBAMAAAAAAAAAAAEAESExQVFxYZGhsRDB4f/aAAgBAQABPxAJBblgnEYKN09Y5gGAOKSbSYxIvbzQTOIClAKdleYwFhqTih7dQKMFDt5e2f0EwspC5gLQ+/aawNp6AD0u4Qjm7QTcpu7Y8M/MQ8Zksoqr0b5+iaG/sFhnfrHS3jQxFteb5vCwM+x3UwTYCBNZPHZUHRfo7l4KarU+Lnz00Rv5fp+If//Z";
+            let img = document.getElementById("testImg");
+            img.src = src;
+        }
+
+        function showPop(elem){
+            let _that = this;
+            let box = document.createElement('div');
+            this.el = document.getElementById(elem);
+            box.setAttribute('class','popup');
+            this.createPop = function(){
+                let html=`
+                    <div id="showMsg">
+                        <h1 class="puput_title clearfix">信息 <a class="close_pop f_r"></a></h1>
+                        <div class="form_row">
+                            <span class="msg_text">添加成功</span>
+                        </div>
+                    </div>
+                `;
+                box.innerHTML = html;
+                document.body.appendChild(box);
+            }
+            this.locatePop=function(el){
+                    let wWidth = document.body.clientWidth,wHeight = document.body.clientHeight;
+                    let w = el.offsetWidth,h=el.offsetHeight;
+                    el.style.left = wWidth/2-w/2+'px';
+                    el.style.top = wHeight/2-h/2+'px';
+            }
+            this.show=function(){
+                if(this.el){
+                    this.locatePop(this.el);
+                }else{
+                    this.createPop();
+                    let el = document.getElementById('showMsg');
+                    this.locatePop(el);
+                    el.querySelector(".close_pop").onclick=function(){
+                        //console.log(this.parentNode.parentNode.parentNode.className);
+                        //this.parentNode.parentNode.parentNode.style.display = 'none';
+                        //console.log(this);
+                        //console.log(_that.findParent(this,'popup'));
+                        let parent =  _that.findParent(this,'popup');
+                        console.log(parent);
+                        
+                        
+                    }
+                }
+            }
+            this.findParent=function(el,name){
+                if(el.className==name){
+                   console.log(el);
+                   return el;
+                }else{
+                    if(el.parentNode) _that.findParent(el.parentNode,name);
+                   console.log(_that.findParent);
+                }
+            }
+            //调用show
+            this.show();
+            window.onresize = function(){
+               _that.show();
+            }
+            
+            // this.resizeShow=function(){
+            //     let resize = window.resize;
+            //     resize = function(){
+            //         this.clickShow(elem);
+            //     }
+            // }
+         
+            
+            
+        }
+    </script>
+</body>
+
+</html>
